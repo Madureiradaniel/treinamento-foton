@@ -6,7 +6,7 @@
 	<groupId>la.foton.treinamento.backend</groupId>
 	<artifactId>treinamento-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>treinamento-backend</name>
 	<url>http://www.foton.la</url>
@@ -16,6 +16,7 @@
 		<java.version>1.8</java.version>
 		<junit.version>4.12</junit.version>
 		<jee.version>7.0</jee.version>
+		<failOnMissingWebXml>false</failOnMissingWebXml>
 	</properties>
 
 	<dependencies>

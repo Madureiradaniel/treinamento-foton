@@ -10,4 +10,6 @@ public interface ContaDAO {
 
 	Conta consultaPorNumero(Integer numero);
 	
+	Boolean salvar(Conta conta);
+	
 }

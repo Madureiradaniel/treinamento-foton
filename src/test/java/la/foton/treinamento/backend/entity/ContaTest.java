@@ -34,12 +34,13 @@ public class ContaTest {
 	@Test
 	public void deveDebitarUmValorNaContaQuePossuiSaldoSuficiente() {
 		try {
-			conta.debita(15.0);
+			conta.debita(10.0);
+			assertEquals(90.00, conta.getSaldo(),0.01);
 		} catch (Exception e) {
-			fail();
+		
+			fail();			
 		}
 
-		assertEquals(85.0, conta.getSaldo(), 0.0);
 	}
 
 	@Test
@@ -48,7 +49,7 @@ public class ContaTest {
 			conta.debita(100.01);
 			fail();
 		} catch (NegocioException e) {
-			assertEquals(Mensagem.SALDO_INSUFICIENTE, e.getMensagem().getTexto());
+			assertEquals(Mensagem.SALDO_INSUFICIENTE.getTexto(),e.getMessage());
 		}
 
 	}

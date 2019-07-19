@@ -1,0 +1,74 @@
+JSR - ESPECIFICAÇÕES 
+
+JAVA EE < - Container de App (Aplication server)
+
+Dá suporte:
+	 - JPA
+	 - JTA
+	 - EJB
+	 - JMS
+	 - JAX-RS(rest)
+	 - JAX-WS(soap)
+
+(tem as implementações citadas acima)Servidores de aplicações:
+	 - Jboss[JAX-RS, Rest easy]
+	 - Widfly
+	 - Weblogic
+	 - Websphir
+	 - Glassfish
+
+
+POM.xml -> "<scope>provided</scope>" -> o servidor de aplicação que vai prover as implementação.
+
+na arquitetura   EJB, as regras de negócio são implementadas em componentes específicos que são chamadas de Session Beans.
+	
+	-> max-pool-size = 20(quantos EJBS, estão disponivéis(serviços))
+
+	-@stateless(não guardo o estado)
+	-@stateful(guarda o estado)
+	-@Sigletan(garante que só existe uma instância naquela JVM)
+	-@Inject( )
+	-@EJB()
+
+Ex.:	
+	(max-pool-size = 20 ) - vai criar as 20 instâncias, se chegar 21, uma fica esperando
+	@Inject 
+	private ContaDao dao;
+	
+	@EJB(aceita @inject, por padroes, boas práticas chamamos de @EJB)
+	private ContaService service;	
+
+   -> Thread safety: Garante que aquela thread é segura, que ele vai executar até o fim.
+
+resolver caso onde, ele implementa um interface que possui duas implementações.
+
+	@default - no inject
+	@alternative
+
+- Diretiva
+	- @BMW - na hora de instaciar, digo qual é a diretiva e ele pega a que foi escolhida.
+
+
+*embebed.* , *kafka*
+-Session beans  stateless
+
+	- Não mantem estado de converção
+	- são inevitaveis e podem ser alocados de um pool, 
+	- é um EJB econônomico
+	- não tem compromisso de manter uma sessão. 
+
+
+Para usar o CDI, temos que instalar ele, só criar o arquivo xml , em meta-inf.
+
+JNDI - Localizador, endereço.
+
+@EJB - local, nao precisa colocar.
+     - remote, tem que colocar @remote
+
+a conexão do banco de dados , se localiza nos containers
+na aplicação permanece apenas, as variaveis.
+
+hibernate é uma das implementações od JPA.
+
+
+

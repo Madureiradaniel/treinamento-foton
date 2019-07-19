@@ -1,41 +1,48 @@
 package la.foton.treinamento.backend.service;
 
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+
 import la.foton.treinamento.backend.DAO.ContaDAO;
-import la.foton.treinamento.backend.DAO.ContaDAOMap;
 import la.foton.treinamento.backend.common.exception.Mensagem;
 import la.foton.treinamento.backend.common.exception.NegocioException;
 import la.foton.treinamento.backend.entity.Cliente;
 import la.foton.treinamento.backend.entity.Conta;
 import la.foton.treinamento.backend.entity.ContaCorrente;
 import la.foton.treinamento.backend.entity.ContaPoupanca;
+import la.foton.treinamento.backend.entity.EstadoDaConta;
 import la.foton.treinamento.backend.entity.TipoDaConta;
 
+@Stateless
 public class ContaService {
 
-	private static ContaService instancia;
+	
+	@Inject
+	private ContaDAO dao;
 
-	private ContaDAO dao = ContaDAOMap.get();
+	@EJB
+	private ClienteService clienteService;
 
-	private ClienteService clienteService = ClienteService.get();
-
-	private ContaService() {
-
+	private Conta criaConta(TipoDaConta tipo, Cliente titular) {
+		Conta conta = null;
+		if (TipoDaConta.CORRENTE.equals(tipo)) {
+			conta = new ContaCorrente();
+			((ContaCorrente) conta).setLimeteDeChequeEspecial(500.00);
+		} else {
+			conta = new ContaPoupanca();
+			((ContaPoupanca) conta).setDiaDoAniversario(1);
+		}
+		conta.setTitular(titular);
+		return conta;
 	}
 
 	public Conta ConsultaPorNumero(Integer numero) throws NegocioException {
 		Conta conta = dao.consultaPorNumero(numero);
-		if(conta == null) {
+		if (conta == null) {
 			throw new NegocioException(Mensagem.CONTA_NAO_ENCONTRADA);
 		}
 		return conta;
-	}
-
-	public static ContaService get() {
-		if (instancia == null) {
-			instancia = new ContaService();
-		}
-
-		return instancia;
 	}
 
 	public Conta abreConta(Cliente titular, TipoDaConta tipo) throws NegocioException {
@@ -54,17 +61,45 @@ public class ContaService {
 
 	}
 
-	private Conta criaConta(TipoDaConta tipo, Cliente titular) {
-		Conta conta = null;
-		if (TipoDaConta.CORRENTE.equals(tipo)) {
-			conta = new ContaCorrente();
-			((ContaCorrente) conta).setLimeteDeChequeEspecial(500.00);
+	public void credita(Conta conta, Double valor) {
+		conta.credita(valor);
+		dao.salvar(conta);
+	}
+
+	public void debita(Conta conta, Double valor) throws NegocioException {
+		conta.debita(valor);
+		dao.salvar(conta);
+	}
+
+	public void transfere(Conta origem, Conta destino, Double valor) throws NegocioException {
+
+		debita(origem, valor);
+		credita(destino,valor);
+
+		dao.salvar(origem);
+		dao.salvar(destino);
+
+	}
+
+	public void encerraConta(Conta conta) throws NegocioException {
+
+		if (TipoDaConta.CORRENTE.equals(conta.getTipo())) {
+			if ((conta.getSaldo() - ((ContaCorrente) conta).getLimeteDeChequeEspecial()) != 0) {
+				throw new NegocioException(Mensagem.EXISTE_SALDO_NA_CONTA);
+			}
+
 		} else {
-			conta = new ContaPoupanca();
-			((ContaPoupanca) conta).setDiaDoAniversario(1);
+			if (conta.getSaldo() != 0) {
+				throw new NegocioException(Mensagem.EXISTE_SALDO_NA_CONTA);
+			}
 		}
-		conta.setTitular(titular);
-		return conta;
+		if (conta.getEstado() != EstadoDaConta.ATIVO) {
+			throw new NegocioException(Mensagem.CONTA_JA_INATIVA);
+		}
+
+		conta.inativa();
+		dao.salvar(conta);
+
 	}
 
 }

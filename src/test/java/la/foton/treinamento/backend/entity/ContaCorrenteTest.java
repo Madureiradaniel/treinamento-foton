@@ -40,7 +40,7 @@ public class ContaCorrenteTest {
 		} catch (NegocioException e) {
 			// checar uma exceção
 
-			assertEquals(Mensagem.SALDO_INSUFICIENTE, e.getMensagem());
+			assertEquals(Mensagem.SALDO_INSUFICIENTE.getTexto(), e.getMessage());
 
 		}
 

@@ -4,6 +4,8 @@ public enum Mensagem {
 	//conta
 	SALDO_INSUFICIENTE("SALDO INSUFICIENTE"),
 	CONTA_NAO_ENCONTRADA("Conta Não encontrada"),
+	EXISTE_SALDO_NA_CONTA("EXISTE SALDO NA CONTA"),
+	CONTA_JA_INATIVA("conta já encerrada"),
 	
 	//cliente
 	SITUACAO_CLIENTE_PENDENTE("Situação do cliente está pendente");

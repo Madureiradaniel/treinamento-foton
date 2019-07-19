@@ -54,5 +54,13 @@ public abstract class Conta {
 	public void ativa() {
 		this.estado = EstadoDaConta.ATIVO;
 	}
+	
+	public void inativa() {
+		this.estado = EstadoDaConta.INATIVADA;		
+	}
+	
+	public TipoDaConta getTipo() {
+		return tipo;
+	}
 
 }

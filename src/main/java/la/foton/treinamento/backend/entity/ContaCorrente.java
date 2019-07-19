@@ -6,6 +6,11 @@ import la.foton.treinamento.backend.common.exception.NegocioException;
 public class ContaCorrente extends Conta{
 	
 	private Double limeteDeChequeEspecial;
+
+	public ContaCorrente() {
+		this.tipo = TipoDaConta.CORRENTE;
+		this.limeteDeChequeEspecial = 0.00;
+	}
 	
 	@Override
 	public Double getSaldo() {
@@ -13,10 +18,6 @@ public class ContaCorrente extends Conta{
 		return saldo + limeteDeChequeEspecial;
 	}
 	
-	public ContaCorrente() {
-	this.tipo = TipoDaConta.CORRENTE;
-		this.limeteDeChequeEspecial = 0.00;
-	}
 	
 	@Override
 	public void debita(Double valor) throws NegocioException {
@@ -34,6 +35,7 @@ public class ContaCorrente extends Conta{
 	public void setLimeteDeChequeEspecial(Double limeteDeChequeEspecial) {
 		this.limeteDeChequeEspecial = limeteDeChequeEspecial;
 	}
+	
 	
 	
 }

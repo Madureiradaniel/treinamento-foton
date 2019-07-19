@@ -18,7 +18,7 @@ public class ContaPoupanca extends Conta {
 			throw new NegocioException(Mensagem.SALDO_INSUFICIENTE);
 		}
 
-		saldo = valor - valor;
+		saldo = saldo - valor;
 	}
 
 	public Integer getDiaDoAniversario() {
@@ -28,5 +28,6 @@ public class ContaPoupanca extends Conta {
 	public void setDiaDoAniversario(Integer diaDoAniversario) {
 		this.diaDoAniversario = diaDoAniversario;
 	}
+	
 
 }
