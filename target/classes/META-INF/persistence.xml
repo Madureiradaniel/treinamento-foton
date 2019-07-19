@@ -14,6 +14,11 @@
 
 		<jta-data-source>java:/treinamentoDS</jta-data-source>
 
+		<class>la.foton.treinamento.backend.entity.Cliente</class>
+		<class>la.foton.treinamento.backend.entity.Conta</class>
+		<class>la.foton.treinamento.backend.entity.ContaCorrente</class>
+		<class>la.foton.treinamento.backend.entity.ContaPoupanca</class>
+
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 
 		<properties>

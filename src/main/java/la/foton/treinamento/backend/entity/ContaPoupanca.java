@@ -1,9 +1,17 @@
 package la.foton.treinamento.backend.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import la.foton.treinamento.backend.common.exception.Mensagem;
 import la.foton.treinamento.backend.common.exception.NegocioException;
 
+@Entity
+@Table(name = "ContaPoupanca")
 public class ContaPoupanca extends Conta {
+	
+	@Column(name = "diaDoAniversario")
 	private Integer diaDoAniversario;
 
 	public ContaPoupanca() {

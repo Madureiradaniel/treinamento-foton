@@ -1,6 +1,8 @@
 package la.foton.treinamento.backend.DAO;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.ejb.Singleton;
@@ -41,6 +43,11 @@ public class ContaDAOMap implements ContaDAO {
 		}
 		return false;
 
+	}
+
+	@Override
+	public List<Conta> consultaTodas() {
+		return new ArrayList<>(contas.values());
 	}
 
 }

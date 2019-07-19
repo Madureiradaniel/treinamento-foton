@@ -1,14 +1,47 @@
 package la.foton.treinamento.backend.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+
 import la.foton.treinamento.backend.common.exception.NegocioException;
 
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Conta {
+	@Id
 	private Integer numero;
+	
+	@Column
 	private Integer agencia;
+	
+	@Column
 	protected Double saldo;
+	
+	@ManyToOne
+	@JoinColumn(name = "cpf")
 	private Cliente titular;
+	
+	@Column
+	@Convert(converter = TipoDaConta.class)
 	protected TipoDaConta tipo;
+	
+	@Column
+	@Enumerated(EnumType.ORDINAL)
 	private EstadoDaConta estado;
+	
+	@PrePersist
+	public void prePersist() {
+		this.agencia = 1234;
+	}
 
 	public Conta() {
 		this.agencia = 1234;
