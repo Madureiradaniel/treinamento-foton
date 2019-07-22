@@ -1,4 +1,4 @@
-package la.foton.treinamento.backend.DAO;
+package la.foton.treinamento.backend.dao;
 
 import java.util.List;
 

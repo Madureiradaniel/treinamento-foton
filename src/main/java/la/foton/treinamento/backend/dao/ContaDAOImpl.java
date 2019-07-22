@@ -1,13 +1,15 @@
-package la.foton.treinamento.backend.DAO;
+package la.foton.treinamento.backend.dao;
 
 import java.util.List;
 
+import javax.enterprise.inject.Default;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import la.foton.treinamento.backend.entity.Conta;
 
+@Default
 public class ContaDAOImpl implements ContaDAO {
 
 	@PersistenceContext
@@ -29,10 +31,10 @@ public class ContaDAOImpl implements ContaDAO {
 		em.persist(conta);
 	}
 
-//	@Override
-//	public void atualiza(Conta conta) {
-//		em.merge(conta);
-//	}
+	@Override
+	public void atualiza(Conta conta) {
+		em.merge(conta);
+	}
 
 	@Override
 	public Conta consultaPorNumero(Integer numero) {
@@ -45,12 +47,6 @@ public class ContaDAOImpl implements ContaDAO {
 		String sql ="SELECT c FROM Conta c";
 		
 		return em.createQuery(sql, Conta.class).getResultList();
-	}
-
-	@Override
-	public Boolean salvar(Conta conta) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

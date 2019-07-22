@@ -7,24 +7,22 @@
         http://xmlns.jcp.org/xml/ns/persistence
         http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 
-	<persistence-unit name="treinamentoPU"
-		transaction-type="JTA">
+	<persistence-unit name="treinamentoPU" transaction-type="JTA">
 
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 
-		<jta-data-source>java:/treinamentoDS</jta-data-source>
+		<jta-data-source>java:/treinamentoDS</jta-data-source> <!-- JNDI -->
 
 		<class>la.foton.treinamento.backend.entity.Cliente</class>
 		<class>la.foton.treinamento.backend.entity.Conta</class>
 		<class>la.foton.treinamento.backend.entity.ContaCorrente</class>
 		<class>la.foton.treinamento.backend.entity.ContaPoupanca</class>
-
-		<exclude-unlisted-classes>true</exclude-unlisted-classes>
-
+		
+		<exclude-unlisted-classes>true</exclude-unlisted-classes> 
+		
 		<properties>
-			<property name="hibernate.dialect"
-				value="org.hibernate.dialect.H2Dialect" />
-			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" /> <!-- INFORMA O BANCO DE DADOS -->
+			<property name="hibernate.hbm2ddl.auto" value="update" /> <!-- USAR VALIDATE EM VEZ DE UPDATE-->
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 		</properties>

@@ -1,5 +1,6 @@
 package la.foton.treinamento.backend.entity;
 
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -16,7 +17,7 @@ public class ContaTest {
 
 	@Before
 	public void setUp() {
-		conta = new ContaPoupanca();
+		conta = new ContaCorrente();
 		conta.credita(100.0);
 	}
 
@@ -34,39 +35,43 @@ public class ContaTest {
 	@Test
 	public void deveDebitarUmValorNaContaQuePossuiSaldoSuficiente() {
 		try {
-			conta.debita(10.0);
-			assertEquals(90.00, conta.getSaldo(),0.01);
-		} catch (Exception e) {
-		
-			fail();			
+			conta.debita(15.0);
+		} catch (NegocioException e) {
+			fail();
 		}
 
+		assertEquals(85.0, conta.getSaldo(), 0.0);
 	}
-
+	
 	@Test
 	public void naoDeveDebitarValorEmContaQueNaoPossuiSaldo() {
 		try {
 			conta.debita(100.01);
 			fail();
 		} catch (NegocioException e) {
-			assertEquals(Mensagem.SALDO_INSUFICIENTE.getTexto(),e.getMessage());
+			assertEquals(Mensagem.SALDO_INSUFICIENTE, e.getMensagem());
 		}
-
+				
 	}
-
+	
 	@Test
-	public void deveTransferirUmValor() {
-		
-		Conta contaDestino;
-
-		contaDestino = new ContaPoupanca();
+	public void deveTranferirUmValorEntreContas() {
+		Conta contaDeCredito = new ContaPoupanca();
 		try {
-			conta.tranfere(99.99, contaDestino);
-			assertEquals(0.01,conta.getSaldo(),0.001);
-			assertEquals(99.99,contaDestino.getSaldo(),0.001);
+			conta.transfere(99.99, contaDeCredito);
+			assertEquals(0.01, conta.getSaldo(), 0.1);
+			assertEquals(99.99, contaDeCredito.getSaldo(), 0.0);
 		} catch (NegocioException e) {
-			fail();
-			e.printStackTrace();
-		}
+			fail(e.getMensagem().getTexto());
+		}		
+		
+		
 	}
+	
+	@Test
+	public void naoDeveTranferirUmValorDeContaCorrenteParaUmaContaDestinoQueNaoPossuiSaldo() {
+		
+	}
+	
+	
 }

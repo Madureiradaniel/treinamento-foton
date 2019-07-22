@@ -17,24 +17,20 @@ public class Cliente {
 	
 	@Column(nullable = false)
 	private String nome;
-
+	
 	@Column
 	@Enumerated(EnumType.ORDINAL)
 	private SituacaoDoCliente situacao;
-
-	public Cliente() {
-		situacao = SituacaoDoCliente.PENDENTE;
+	
+	public Cliente(){
+		this.situacao = SituacaoDoCliente.PENDENTE;
 	}
-
+	
 	public Cliente(String cpf, String nome) {
 		super();
 		this.cpf = cpf;
 		this.nome = nome;
-		situacao = SituacaoDoCliente.PENDENTE;		
-	}
-
-	public void ativa() {
-		situacao = SituacaoDoCliente.ATIVO;
+		this.situacao = SituacaoDoCliente.PENDENTE;
 	}
 
 	public String getCpf() {
@@ -48,4 +44,9 @@ public class Cliente {
 	public SituacaoDoCliente getSituacao() {
 		return situacao;
 	}
+
+	public void ativa() {
+		situacao = SituacaoDoCliente.ATIVO;
+	}
+
 }

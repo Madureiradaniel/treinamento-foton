@@ -12,37 +12,35 @@ import la.foton.treinamento.backend.common.exception.NegocioException;
 public class ContaCorrente extends Conta{
 	
 	@Column(name = "limiteDeChequeEspecial")
-	private Double limeteDeChequeEspecial;
-
-	public ContaCorrente() {
+	private Double limiteDeChequeEspecial;
+	
+	public ContaCorrente(){
+		this.limiteDeChequeEspecial = 0.0;
 		this.tipo = TipoDaConta.CORRENTE;
-		this.limeteDeChequeEspecial = 0.00;
 	}
 	
+	public Double getLimiteDeChequeEspecial() {
+		return limiteDeChequeEspecial;
+	}
+
+	public void setLimiteDeChequeEspecial(Double limiteDeChequeEspecial) {
+		this.limiteDeChequeEspecial = limiteDeChequeEspecial;
+	}
+	
+
 	@Override
 	public Double getSaldo() {
-		
-		return saldo + limeteDeChequeEspecial;
+		return this.saldo + limiteDeChequeEspecial;
 	}
-	
 	
 	@Override
 	public void debita(Double valor) throws NegocioException {
-		if(saldo + limeteDeChequeEspecial < valor) {
+		if(this.saldo + getLimiteDeChequeEspecial() < valor) {
 			throw new NegocioException(Mensagem.SALDO_INSUFICIENTE);
 		}
 		
-		saldo -= valor;
+		this.saldo = saldo - valor;
 	}
-
-	public Double getLimeteDeChequeEspecial() {
-		return limeteDeChequeEspecial;
-	}
-
-	public void setLimeteDeChequeEspecial(Double limeteDeChequeEspecial) {
-		this.limeteDeChequeEspecial = limeteDeChequeEspecial;
-	}
-	
 	
 	
 }

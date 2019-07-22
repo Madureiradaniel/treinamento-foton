@@ -10,39 +10,33 @@ import la.foton.treinamento.backend.common.exception.Mensagem;
 import la.foton.treinamento.backend.common.exception.NegocioException;
 
 public class ContaCorrenteTest {
+	
 	private ContaCorrente conta;
-
+	
 	@Before
 	public void setUp() {
 		conta = new ContaCorrente();
-		conta.credita(500.00);
-		conta.setLimeteDeChequeEspecial(100.00);
+		conta.credita(500.0);
+		conta.setLimiteDeChequeEspecial(100.0);
 	}
-
+	
 	@Test
-	public void deveDebitarValornaContaCorrenteQuePOssuiSaldoComLimite() {
-
+	public void deveDebitarValorNaContaCorrenteQuePossuiSaldoJuntoComLimite() {
 		try {
 			conta.debita(599.99);
 			assertEquals(0.01, conta.getSaldo(), 0.01);
-		} catch (Exception e) {
+		} catch (NegocioException e) {
 			fail();
-
 		}
-
 	}
-
+	
 	@Test
 	public void naoDeveDebitarValorNaContaQueExtrapolaOSaldoMaisOLimite() {
 		try {
 			conta.debita(600.01);
 			fail();
 		} catch (NegocioException e) {
-			// checar uma exceção
-
-			assertEquals(Mensagem.SALDO_INSUFICIENTE.getTexto(), e.getMessage());
-
+			assertEquals(Mensagem.SALDO_INSUFICIENTE, e.getMensagem());
 		}
-
 	}
 }

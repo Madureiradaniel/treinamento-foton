@@ -1,19 +1,17 @@
-package la.foton.treinamento.backend.DAO;
+package la.foton.treinamento.backend.dao;
 
 import java.util.List;
 
 import la.foton.treinamento.backend.entity.Conta;
 
 public interface ContaDAO {
-
-	Integer geraNumero();
+	public Integer geraNumero();
 	
 	void insere(Conta conta);
+	
+	void atualiza(Conta conta);
 
 	Conta consultaPorNumero(Integer numero);
 	
-	Boolean salvar(Conta conta);
-	
 	List<Conta> consultaTodas();
-	
 }

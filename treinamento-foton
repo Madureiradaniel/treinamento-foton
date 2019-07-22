@@ -71,4 +71,74 @@ na aplicação permanece apenas, as variaveis.
 hibernate é uma das implementações od JPA.
 
 
+API REST(jax-rs) | soap(jax-ws)
+
+	- API 
+	- methods http
+		- GET, pegar informações(200)
+		- POST, criação de novos recursos(201, devolve uma uri, identificador unico do recurso - uri
+			location: api/conta/1	)
+
+		- PUT, atualização dos recursos já existente(200)
+		- DELETE, excluir um recurso(200/204)
+		- OPTIONS, para verificar (200)
+
+*swager*
+
+
+JAVA EE 
+2 Tipos de errors
+	- systens(Existe roolback)
+	- exceções das aplicações, não fazem roolback
+
+	 - o container só entende roolback em erros sistemicos, dos sistemas.
+	
+ - providers , trabalhar com questões de erros
+
+
+CONTEXTOS TRANSACIONAIS E EXCEÇÕES
+
+ - JTA(Java Transacion API)
+ 	- Coordenador de transações padrão JEE, responsável pelo gerenciamento da transação dentro do container, 
+	- A forma padrão de gerenciar a transação dentro do container é a cmt(Container Managed Transacion )
+	- Outra forma: bmt (Bean Manageed Transacion)
+	
+	@TransactionAttribute(TransactionAttribute.REQUIRED)
+	metodo cadastracliente(String cpf, string nome)
+	
+TRANSACTION ATTRIBUTE
+
+ - MANDATORY
+ - REQUIRED-NEW
+ - NEVER
+ - SUPPORTS
+ - NOT-SUPPORTED
+ - REQUIRED(PADRAO)
+
+	                       EXCEÇÕES
+        (SEM ROLLBACK)            | (ROLLBACK)
+	CHEKED                    |   UNCHEKED
+      - EXCEPTIONS APPLICATION    | SYSTEM APLICATTION
+      - NEGOCIOEXCEPTION          | RUNTIME EXCEPTION
+
+
+@ApplicationException(roolback=true)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

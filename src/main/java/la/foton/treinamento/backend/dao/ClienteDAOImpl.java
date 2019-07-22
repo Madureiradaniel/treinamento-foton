@@ -1,4 +1,4 @@
-package la.foton.treinamento.backend.DAO;
+package la.foton.treinamento.backend.dao;
 
 import java.util.List;
 
@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import la.foton.treinamento.backend.entity.Cliente;
+
 
 public class ClienteDAOImpl implements ClienteDAO {
 

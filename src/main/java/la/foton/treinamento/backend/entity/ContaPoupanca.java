@@ -9,24 +9,22 @@ import la.foton.treinamento.backend.common.exception.NegocioException;
 
 @Entity
 @Table(name = "ContaPoupanca")
-public class ContaPoupanca extends Conta {
+public class ContaPoupanca extends Conta{
 	
 	@Column(name = "diaDoAniversario")
 	private Integer diaDoAniversario;
 
 	public ContaPoupanca() {
-
 		this.tipo = TipoDaConta.POUPANCA;
-
 	}
-
+	
 	@Override
 	public void debita(Double valor) throws NegocioException {
-		if (saldo < valor) {
+		if(saldo < valor) {
 			throw new NegocioException(Mensagem.SALDO_INSUFICIENTE);
 		}
-
-		saldo = saldo - valor;
+		
+		saldo -= valor;
 	}
 
 	public Integer getDiaDoAniversario() {
@@ -37,5 +35,5 @@ public class ContaPoupanca extends Conta {
 		this.diaDoAniversario = diaDoAniversario;
 	}
 	
-
+	
 }
